@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuCliente"
+        android:title="Cliente" />
+    <item
+        android:id="@+id/menuLivro"
+        android:title="Livro" />
+    <item
+        android:id="@+id/menuEmprestimo"
+        android:title="Empréstimo" />
+    <item
+        android:id="@+id/menuFecharApp"
+        android:title="Fechar"
+        />
+
+</menu>
