@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ListagemLivros" />
+        <activity android:name=".FormLivro" />
         <activity android:name=".ListagemClientes" />
         <activity android:name=".FormCliente" />
         <activity android:name=".ListagemEmprestimos">
