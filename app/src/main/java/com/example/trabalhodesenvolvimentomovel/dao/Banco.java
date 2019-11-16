@@ -14,6 +14,13 @@ public abstract class Banco extends SQLiteOpenHelper {
                                                 + "email text, "
                                                 + "telefone text );";
 
+    private static final String SQL_LIVRO = "CREATE TABLE tb_livro ( "
+                                                + "id_livro integer primary key autoincrement, "
+                                                + "titulo text, "
+                                                + "autor text, "
+                                                + "editora text, "
+                                                + "ano text );";
+
     public Banco(Context context){
         super(context, BANCO, null, 1);
     }
@@ -21,5 +28,6 @@ public abstract class Banco extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CLIENTE);
+        db.execSQL(SQL_LIVRO);
     }
 }
