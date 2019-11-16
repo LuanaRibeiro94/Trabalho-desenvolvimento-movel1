@@ -34,6 +34,11 @@ public class ListagemEmprestimos extends AppCompatActivity {
                 startActivityForResult(i, 1);
                 break;
             }
+            case R.id.menuLivro: {
+                Intent i = new Intent(this, ListagemLivros.class);
+                startActivityForResult(i, 1);
+                break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
