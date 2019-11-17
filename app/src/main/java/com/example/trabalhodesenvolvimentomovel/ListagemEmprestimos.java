@@ -39,6 +39,11 @@ public class ListagemEmprestimos extends AppCompatActivity {
                 startActivityForResult(i, 1);
                 break;
             }
+            case R.id.menuEmprestimo: {
+                Intent i = new Intent(this, FormEmprestimo.class);
+                startActivityForResult(i, 1);
+                break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
