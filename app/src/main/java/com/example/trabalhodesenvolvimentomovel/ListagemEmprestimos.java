@@ -99,18 +99,18 @@ public class ListagemEmprestimos extends AppCompatActivity {
         mDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                long retornoDB;
-                emprestimoDao = new EmprestimoDao(ListagemEmprestimos.this);
-                retornoDB = emprestimoDao.excluirEmprestimo(emprestimo);
-                emprestimoDao.close();
+            long retornoDB;
+            emprestimoDao = new EmprestimoDao(ListagemEmprestimos.this);
+            retornoDB = emprestimoDao.excluirEmprestimo(emprestimo);
+            emprestimoDao.close();
 
-                if (retornoDB == -1 ){
-                    alert("Erro de exclusão");
-                } else {
-                    alert("Registro excluído com sucesso!");
-                }
-                populaLista();
-                return false;
+            if (retornoDB == -1 ){
+                alert("Erro de exclusão");
+            } else {
+                alert("Registro excluído com sucesso!");
+            }
+            populaLista();
+            return false;
             }
         });
 
@@ -125,9 +125,9 @@ public class ListagemEmprestimos extends AppCompatActivity {
 
         if (listaEmprestimos != null) {
             arrayAdapterEmprestimo = new ArrayAdapter<Emprestimo>(
-                    ListagemEmprestimos.this,
-                    android.R.layout.simple_list_item_1,
-                    arrayListEmprestimo
+                ListagemEmprestimos.this,
+                android.R.layout.simple_list_item_1,
+                arrayListEmprestimo
             );
 
             listaEmprestimos.setAdapter(arrayAdapterEmprestimo);

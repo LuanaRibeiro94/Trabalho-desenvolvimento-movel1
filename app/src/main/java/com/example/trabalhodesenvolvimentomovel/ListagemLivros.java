@@ -40,27 +40,27 @@ public class ListagemLivros extends AppCompatActivity {
         btnNovoCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ListagemLivros.this, FormLivro.class);
-                startActivity(i);
+            Intent i = new Intent(ListagemLivros.this, FormLivro.class);
+            startActivity(i);
             }
         });
 
         listaLivros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Livro livroEnviado = (Livro) arrayAdapterLivro.getItem(position);
+            Livro livroEnviado = (Livro) arrayAdapterLivro.getItem(position);
 
-                Intent i = new Intent(ListagemLivros.this, FormLivro.class);
-                i.putExtra("livro-enviado", livroEnviado);
-                startActivity(i);
+            Intent i = new Intent(ListagemLivros.this, FormLivro.class);
+            i.putExtra("livro-enviado", livroEnviado);
+            startActivity(i);
             }
         });
 
         listaLivros.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                livro = arrayAdapterLivro.getItem(position);
-                return false;
+            livro = arrayAdapterLivro.getItem(position);
+            return false;
             }
         });
     }
@@ -91,18 +91,18 @@ public class ListagemLivros extends AppCompatActivity {
         mDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                long retornoDB;
-                livroDao = new LivroDao(ListagemLivros.this);
-                retornoDB = livroDao.excluirLivro(livro);
-                livroDao.close();
+            long retornoDB;
+            livroDao = new LivroDao(ListagemLivros.this);
+            retornoDB = livroDao.excluirLivro(livro);
+            livroDao.close();
 
-                if (retornoDB == -1 ){
-                    alert("Erro de exclusão");
-                } else {
-                    alert("Registro excluído com sucesso!");
-                }
-                populaLista();
-                return false;
+            if (retornoDB == -1 ){
+                alert("Erro de exclusão");
+            } else {
+                alert("Registro excluído com sucesso!");
+            }
+            populaLista();
+            return false;
             }
         });
         super.onCreateContextMenu(menu, v, menuInfo);

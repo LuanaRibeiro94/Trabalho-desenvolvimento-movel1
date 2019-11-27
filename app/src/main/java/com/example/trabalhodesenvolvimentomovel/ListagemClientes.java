@@ -90,18 +90,18 @@ public class ListagemClientes extends AppCompatActivity {
         mDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                long retornoDB;
-                clienteDao = new ClienteDao(ListagemClientes.this);
-                retornoDB = clienteDao.excluirCliente(cliente);
-                clienteDao.close();
+            long retornoDB;
+            clienteDao = new ClienteDao(ListagemClientes.this);
+            retornoDB = clienteDao.excluirCliente(cliente);
+            clienteDao.close();
 
-                if (retornoDB == -1 ){
-                    alert("Erro de exclusão");
-                } else {
-                    alert("Registro excluído com sucesso!");
-                }
-                populaLista();
-                return false;
+            if (retornoDB == -1 ){
+                alert("Erro de exclusão");
+            } else {
+                alert("Registro excluído com sucesso!");
+            }
+            populaLista();
+            return false;
             }
         });
         super.onCreateContextMenu(menu, v, menuInfo);

@@ -95,14 +95,14 @@ public class ClienteDao extends Banco {
         String where = "id_cliente = ?";
         String[] whereArgs = {id};
         Cursor cursor = getReadableDatabase().query(
-                TB_CLIENTE,
-                coluns,
-                where,
-                whereArgs,
-                null,
-                null,
-                null,
-                null
+            TB_CLIENTE,
+            coluns,
+            where,
+            whereArgs,
+            null,
+            null,
+            null,
+            null
         );
 
         Cliente cliente = new Cliente();

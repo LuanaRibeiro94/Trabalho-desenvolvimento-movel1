@@ -95,14 +95,14 @@ public class LivroDao extends Banco {
         String where = "id_livro = ?";
         String[] whereArgs = {id};
         Cursor cursor = getReadableDatabase().query(
-                TB_LIVRO,
-                coluns,
-                where,
-                whereArgs,
-                null,
-                null,
-                null,
-                null
+            TB_LIVRO,
+            coluns,
+            where,
+            whereArgs,
+            null,
+            null,
+            null,
+            null
         );
 
         Livro livro = new Livro();
