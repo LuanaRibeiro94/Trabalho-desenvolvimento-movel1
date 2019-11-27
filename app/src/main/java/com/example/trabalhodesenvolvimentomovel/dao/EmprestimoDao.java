@@ -81,4 +81,20 @@ public class EmprestimoDao extends Banco {
 
         return retornoDB;
     }
+
+    public long alterarEmprestimo(Emprestimo emprestimo) {
+        ContentValues values = new ContentValues();
+        long retornoDB;
+
+        values.put(CLIENTE_ID, emprestimo.getCliente().getId());
+        values.put(LIVRO_ID, emprestimo.getLivro().getId());
+        values.put(DATA_EMP, emprestimo.getData_emp());
+        values.put(DATA_DEV, emprestimo.getData_dev());
+
+        String [] args = {String.valueOf(emprestimo.getId())};
+
+        retornoDB = getWritableDatabase().update(TB_EMPRESTIMO, values, "id_emprestimo=?", args);
+
+        return retornoDB;
+    }
 }

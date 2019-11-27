@@ -34,6 +34,17 @@ public class ListagemEmprestimos extends AppCompatActivity {
         listaEmprestimos = findViewById(R.id.listEmprestimos);
         registerForContextMenu(listaEmprestimos);
 
+        listaEmprestimos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Emprestimo emprestimoEnviado = (Emprestimo) arrayAdapterEmprestimo.getItem(position);
+
+            Intent i = new Intent(ListagemEmprestimos.this, FormEmprestimo.class);
+            i.putExtra("emprestimo-enviado", emprestimoEnviado);
+            startActivity(i);
+            }
+        });
+
         listaEmprestimos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {

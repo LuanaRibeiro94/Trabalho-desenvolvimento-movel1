@@ -53,4 +53,16 @@ public class Cliente implements Serializable {
     public String toString(){
         return id + " - " + nome;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Cliente)) {
+            return false;
+        }
+
+        Cliente cliente = (Cliente) o;
+
+        return cliente.id == this.id;
+    }
 }

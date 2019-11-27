@@ -53,4 +53,16 @@ public class Livro implements Serializable {
     public String toString(){
         return  id + " - " + titulo;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Livro)) {
+            return false;
+        }
+
+        Livro livro = (Livro) o;
+
+        return livro.id == this.id;
+    }
 }

@@ -103,6 +103,15 @@ public class FormEmprestimo extends AppCompatActivity {
                     } else {
                         alert("Cadastro realizado com sucesso");
                     }
+                } else {
+                    retornoDB = emprestimoDao.alterarEmprestimo(emprestimo);
+                    emprestimoDao.close();
+
+                    if (retornoDB == -1) {
+                        alert("Erro ao cadastrar");
+                    } else {
+                        alert("Atualização realizada com sucesso");
+                    }
                 }
 
                 finish();
