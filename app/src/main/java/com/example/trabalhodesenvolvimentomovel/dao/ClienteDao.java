@@ -69,9 +69,9 @@ public class ClienteDao extends Banco {
     }
 
     public ArrayList<Cliente> selectAllClientes(){
-        String [] coluns = {ID_CLIENTE, NOME, CPF, EMAIL, TELEFONE};
+        String [] columns = {ID_CLIENTE, NOME, CPF, EMAIL, TELEFONE};
 
-        Cursor cursor = getWritableDatabase().query(TB_CLIENTE, coluns, null, null, null, null, "upper(nome)", null);
+        Cursor cursor = getWritableDatabase().query(TB_CLIENTE, columns, null, null, null, null, "upper(nome)", null);
 
         ArrayList<Cliente> listCliente = new ArrayList<Cliente>();
 
@@ -91,12 +91,12 @@ public class ClienteDao extends Banco {
     }
 
     public Cliente buscarCliente(String id) {
-        String [] coluns = {ID_CLIENTE, NOME, CPF, EMAIL, TELEFONE};
+        String [] columns = {ID_CLIENTE, NOME, CPF, EMAIL, TELEFONE};
         String where = "id_cliente = ?";
         String[] whereArgs = {id};
         Cursor cursor = getReadableDatabase().query(
             TB_CLIENTE,
-            coluns,
+            columns,
             where,
             whereArgs,
             null,

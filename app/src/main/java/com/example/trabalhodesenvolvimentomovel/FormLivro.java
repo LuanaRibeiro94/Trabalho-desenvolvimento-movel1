@@ -17,7 +17,7 @@ public class FormLivro extends AppCompatActivity {
     EditText autor;
     EditText editora;
     EditText ano;
-    Button variavelL;
+    Button btnVariavelLiv;
 
     Livro livro, altLivro;
     LivroDao livroDao;
@@ -38,10 +38,11 @@ public class FormLivro extends AppCompatActivity {
         autor = findViewById(R.id.edtAutor);
         editora = findViewById(R.id.edtEditora);
         ano = findViewById(R.id.edtAnoPublicacao);
-        variavelL = findViewById(R.id.btnVariavelL);
+        btnVariavelLiv = findViewById(R.id.btnVariavelLivro);
 
         if(altLivro != null ){
-            variavelL.setText("Alterar");
+            setTitle("Alteração");
+            btnVariavelLiv.setText("Alterar");
             titulo.setText(altLivro.getTitulo());
             autor.setText(altLivro.getAutor()+"");
             editora.setText(altLivro.getEditora());
@@ -49,10 +50,11 @@ public class FormLivro extends AppCompatActivity {
 
             livro.setId(altLivro.getId());
         } else {
-            variavelL.setText("Salvar");
+            setTitle("Cadastro");
+            btnVariavelLiv.setText("Salvar");
         }
 
-        variavelL.setOnClickListener(new View.OnClickListener() {
+        btnVariavelLiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 livro.setTitulo(titulo.getText().toString());
@@ -60,7 +62,7 @@ public class FormLivro extends AppCompatActivity {
                 livro.setEditora(editora.getText().toString());
                 livro.setAno(ano.getText().toString());
 
-                if (variavelL.getText().toString().equals("Salvar")){
+                if (btnVariavelLiv.getText().toString().equals("Salvar")){
                     retornoDB = livroDao.salvarLivro(livro);
                     livroDao.close();
 

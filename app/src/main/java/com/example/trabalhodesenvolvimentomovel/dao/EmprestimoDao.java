@@ -49,9 +49,9 @@ public class EmprestimoDao extends Banco {
     }
 
     public ArrayList<Emprestimo> selectAllEmprestimos() {
-        String [] coluns = {ID_EMPRESTIMO, CLIENTE_ID, LIVRO_ID, DATA_EMP, DATA_DEV};
+        String [] columns = {ID_EMPRESTIMO, CLIENTE_ID, LIVRO_ID, DATA_EMP, DATA_DEV};
 
-        Cursor cursor = getWritableDatabase().query(TB_EMPRESTIMO, coluns, null, null, null, null, null, null);
+        Cursor cursor = getWritableDatabase().query(TB_EMPRESTIMO, columns, null, null, null, null, null, null);
 
         ArrayList<Emprestimo> listEmprestimo = new ArrayList<Emprestimo>();
 

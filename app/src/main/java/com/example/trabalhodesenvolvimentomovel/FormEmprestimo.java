@@ -25,7 +25,7 @@ public class FormEmprestimo extends AppCompatActivity {
     Spinner sLivro;
     EditText dataEmp;
     EditText dataDev;
-    Button btVariavelE;
+    Button btnVariavelEmp;
 
     ArrayList<Cliente> listCliente;
     ClienteDao clienteDao;
@@ -49,7 +49,7 @@ public class FormEmprestimo extends AppCompatActivity {
         sLivro = findViewById(R.id.spnLivro);
         dataEmp = findViewById(R.id.edtDataEmp);
         dataDev = findViewById(R.id.edtDataDev);
-        btVariavelE = findViewById(R.id.btnVariavelE);
+        btnVariavelEmp = findViewById(R.id.btnVariavelEmprestimo);
 
         Intent i= getIntent();
         altEmprestimo = (Emprestimo) i.getSerializableExtra("emprestimo-enviado");
@@ -71,7 +71,8 @@ public class FormEmprestimo extends AppCompatActivity {
         emprestimo = new Emprestimo();
 
         if(altEmprestimo != null ){
-            btVariavelE.setText("Alterar");
+            setTitle("Alteração");
+            btnVariavelEmp.setText("Alterar");
 
             sCliente.setSelection(arrayAdapterCliente.getPosition(altEmprestimo.getCliente()));
             sLivro.setSelection(arrayAdapterLivro.getPosition(altEmprestimo.getLivro()));
@@ -79,10 +80,11 @@ public class FormEmprestimo extends AppCompatActivity {
             dataDev.setText(altEmprestimo.getData_dev());
             emprestimo.setId(altEmprestimo.getId());
         } else {
-            btVariavelE.setText("Salvar");
+            setTitle("Cadastro");
+            btnVariavelEmp.setText("Salvar");
         }
 
-        btVariavelE.setOnClickListener(new View.OnClickListener() {
+        btnVariavelEmp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -94,7 +96,7 @@ public class FormEmprestimo extends AppCompatActivity {
                 emprestimo.setData_emp(dataEmp.getText().toString());
                 emprestimo.setData_dev(dataDev.getText().toString());
 
-                if (btVariavelE.getText().toString().equals("Salvar")){
+                if (btnVariavelEmp.getText().toString().equals("Salvar")){
                     retornoDB = emprestimoDao.salvarEmprestimo(emprestimo);
                     emprestimoDao.close();
 

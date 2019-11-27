@@ -69,9 +69,9 @@ public class LivroDao extends Banco {
     }
 
     public ArrayList<Livro> selectAllLivro(){
-        String [] coluns = {ID_LIVRO, TITULO, AUTOR, EDITORA, ANO};
+        String [] columns = {ID_LIVRO, TITULO, AUTOR, EDITORA, ANO};
 
-        Cursor cursor = getWritableDatabase().query(TB_LIVRO, coluns, null, null, null, null, "upper(titulo)", null);
+        Cursor cursor = getWritableDatabase().query(TB_LIVRO, columns, null, null, null, null, "upper(titulo)", null);
 
         ArrayList<Livro> listLivro = new ArrayList<Livro>();
 
@@ -91,12 +91,12 @@ public class LivroDao extends Banco {
     }
 
     public Livro buscarLivro(String id) {
-        String [] coluns = {ID_LIVRO, TITULO, AUTOR, EDITORA, ANO};
+        String [] columns = {ID_LIVRO, TITULO, AUTOR, EDITORA, ANO};
         String where = "id_livro = ?";
         String[] whereArgs = {id};
         Cursor cursor = getReadableDatabase().query(
             TB_LIVRO,
-            coluns,
+            columns,
             where,
             whereArgs,
             null,

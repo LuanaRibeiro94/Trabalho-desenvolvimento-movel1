@@ -51,7 +51,8 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString(){
-        return id + " - " + nome;
+
+        return nome;
     }
 
     @Override

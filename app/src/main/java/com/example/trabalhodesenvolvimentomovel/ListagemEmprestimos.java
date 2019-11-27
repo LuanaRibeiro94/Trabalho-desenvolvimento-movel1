@@ -31,6 +31,8 @@ public class ListagemEmprestimos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listagem_emprestimos);
 
+        setTitle("Empréstimos");
+
         listaEmprestimos = findViewById(R.id.listEmprestimos);
         registerForContextMenu(listaEmprestimos);
 

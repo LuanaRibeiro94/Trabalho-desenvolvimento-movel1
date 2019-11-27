@@ -18,7 +18,7 @@ public class FormCliente extends AppCompatActivity {
     EditText cpf;
     EditText email;
     EditText telefone;
-    Button variavel;
+    Button btnVariavelCli;
 
     Cliente cliente, altCliente;
     ClienteDao clienteDao;
@@ -39,10 +39,11 @@ public class FormCliente extends AppCompatActivity {
         cpf = findViewById(R.id.edtCpf);
         email = findViewById(R.id.edtEmail);
         telefone = findViewById(R.id.edtTelefone);
-        variavel = findViewById(R.id.btnVariavel);
+        btnVariavelCli = findViewById(R.id.btnVariavelCliente);
 
         if(altCliente != null ){
-            variavel.setText("Alterar");
+            setTitle("Alteração");
+            btnVariavelCli.setText("Alterar");
             nome.setText(altCliente.getNome());
             cpf.setText(altCliente.getCpf()+"");
             email.setText(altCliente.getEmail());
@@ -50,10 +51,11 @@ public class FormCliente extends AppCompatActivity {
 
             cliente.setId(altCliente.getId());
         } else {
-            variavel.setText("Salvar");
+            setTitle("Cadastro");
+            btnVariavelCli.setText("Salvar");
         }
 
-        variavel.setOnClickListener(new View.OnClickListener() {
+        btnVariavelCli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cliente.setNome(nome.getText().toString());
@@ -61,7 +63,7 @@ public class FormCliente extends AppCompatActivity {
                 cliente.setEmail(email.getText().toString());
                 cliente.setTelefone(telefone.getText().toString());
 
-                if (variavel.getText().toString().equals("Salvar")){
+                if (btnVariavelCli.getText().toString().equals("Salvar")){
                     retornoDB = clienteDao.salvarCliente(cliente);
                     clienteDao.close();
 
