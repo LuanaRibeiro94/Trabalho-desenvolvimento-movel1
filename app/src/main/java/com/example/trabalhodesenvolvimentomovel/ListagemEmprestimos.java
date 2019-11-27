@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.trabalhodesenvolvimentomovel.dao.EmprestimoDao;
 import com.example.trabalhodesenvolvimentomovel.modelo.Emprestimo;
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 public class ListagemEmprestimos extends AppCompatActivity {
     ListView listaEmprestimos;
     EmprestimoDao emprestimoDao;
+    Emprestimo emprestimo;
     ArrayList<Emprestimo> arrayListEmprestimo;
     ArrayAdapter<Emprestimo> arrayAdapterEmprestimo;
 
@@ -28,6 +33,14 @@ public class ListagemEmprestimos extends AppCompatActivity {
 
         listaEmprestimos = findViewById(R.id.listEmprestimos);
         registerForContextMenu(listaEmprestimos);
+
+        listaEmprestimos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            emprestimo = arrayAdapterEmprestimo.getItem(position);
+            return false;
+            }
+        });
     }
 
     @Override
@@ -68,6 +81,31 @@ public class ListagemEmprestimos extends AppCompatActivity {
         populaLista();
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuItem mDelete = menu.add("Deletar registro");
+
+        mDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                long retornoDB;
+                emprestimoDao = new EmprestimoDao(ListagemEmprestimos.this);
+                retornoDB = emprestimoDao.excluirEmprestimo(emprestimo);
+                emprestimoDao.close();
+
+                if (retornoDB == -1 ){
+                    alert("Erro de exclusão");
+                } else {
+                    alert("Registro excluído com sucesso!");
+                }
+                populaLista();
+                return false;
+            }
+        });
+
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
     public void populaLista() {
         emprestimoDao = new EmprestimoDao(ListagemEmprestimos.this);
 
@@ -83,5 +121,9 @@ public class ListagemEmprestimos extends AppCompatActivity {
 
             listaEmprestimos.setAdapter(arrayAdapterEmprestimo);
         }
+    }
+
+    private void alert(String s){
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 }

@@ -71,4 +71,14 @@ public class EmprestimoDao extends Banco {
 
         return listEmprestimo;
     }
+
+    public long excluirEmprestimo(Emprestimo emprestimo) {
+        long retornoDB;
+
+        String [] args = {String.valueOf(emprestimo.getId())};
+
+        retornoDB = getWritableDatabase().delete(TB_EMPRESTIMO,ID_EMPRESTIMO+"=?", args);
+
+        return retornoDB;
+    }
 }
