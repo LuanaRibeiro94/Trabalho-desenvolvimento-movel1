@@ -2,16 +2,20 @@ package com.example.trabalhodesenvolvimentomovel;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.trabalhodesenvolvimentomovel.dao.ClienteDao;
+import com.example.trabalhodesenvolvimentomovel.dao.EmprestimoDao;
 import com.example.trabalhodesenvolvimentomovel.dao.LivroDao;
 import com.example.trabalhodesenvolvimentomovel.modelo.Cliente;
+import com.example.trabalhodesenvolvimentomovel.modelo.Emprestimo;
 import com.example.trabalhodesenvolvimentomovel.modelo.Livro;
 
 import java.util.ArrayList;
@@ -31,6 +35,11 @@ public class FormEmprestimo extends AppCompatActivity {
     LivroDao livroDao;
     ArrayAdapter<Livro> arrayAdapterLivro;
 
+    Emprestimo emprestimo, altEmprestimo;
+    EmprestimoDao emprestimoDao;
+
+    long retornoDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +50,11 @@ public class FormEmprestimo extends AppCompatActivity {
         dataEmp = findViewById(R.id.edtDataEmp);
         dataDev = findViewById(R.id.edtDataDev);
         btVariavelE = findViewById(R.id.btnVariavelE);
+
+        Intent i= getIntent();
+        altEmprestimo = (Emprestimo) i.getSerializableExtra("emprestimo-enviado");
+
+        emprestimoDao = new EmprestimoDao(FormEmprestimo.this);
 
         clienteDao = new ClienteDao(FormEmprestimo.this);
         listCliente = clienteDao.selectAllClientes();
@@ -53,5 +67,50 @@ public class FormEmprestimo extends AppCompatActivity {
         arrayAdapterLivro = new ArrayAdapter<Livro>(this, android.R.layout.simple_spinner_item, listLivro);
 
         sLivro.setAdapter(arrayAdapterLivro);
+
+        emprestimo = new Emprestimo();
+
+        if(altEmprestimo != null ){
+            btVariavelE.setText("Alterar");
+
+            sCliente.setSelection(arrayAdapterCliente.getPosition(altEmprestimo.getCliente()));
+            sLivro.setSelection(arrayAdapterLivro.getPosition(altEmprestimo.getLivro()));
+            dataEmp.setText(altEmprestimo.getData_emp());
+            dataDev.setText(altEmprestimo.getData_dev());
+            emprestimo.setId(altEmprestimo.getId());
+        } else {
+            btVariavelE.setText("Salvar");
+        }
+
+        btVariavelE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Cliente cliente = (Cliente) sCliente.getSelectedItem();
+                Livro livro = (Livro) sLivro.getSelectedItem();
+
+                emprestimo.setCliente(cliente);
+                emprestimo.setLivro(livro);
+                emprestimo.setData_emp(dataEmp.getText().toString());
+                emprestimo.setData_dev(dataDev.getText().toString());
+
+                if (btVariavelE.getText().toString().equals("Salvar")){
+                    retornoDB = emprestimoDao.salvarEmprestimo(emprestimo);
+                    emprestimoDao.close();
+
+                    if ( retornoDB == -1 ) {
+                        alert("Erro ao cadastrar");
+                    } else {
+                        alert("Cadastro realizado com sucesso");
+                    }
+                }
+
+                finish();
+            }
+        });
+    }
+
+    private void alert(String s){
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 }
