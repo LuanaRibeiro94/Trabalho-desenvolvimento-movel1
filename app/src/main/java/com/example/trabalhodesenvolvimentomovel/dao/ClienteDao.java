@@ -89,4 +89,32 @@ public class ClienteDao extends Banco {
 
         return listCliente;
     }
+
+    public Cliente buscarCliente(String id) {
+        String [] coluns = {ID_CLIENTE, NOME, CPF, EMAIL, TELEFONE};
+        String where = "id_cliente = ?";
+        String[] whereArgs = {id};
+        Cursor cursor = getReadableDatabase().query(
+                TB_CLIENTE,
+                coluns,
+                where,
+                whereArgs,
+                null,
+                null,
+                null,
+                null
+        );
+
+        Cliente cliente = new Cliente();
+
+        if(cursor.moveToFirst()) {
+            cliente.setId(cursor.getInt(0));
+            cliente.setNome(cursor.getString(1));
+            cliente.setCpf(cursor.getString(2));
+            cliente.setEmail(cursor.getString(3));
+            cliente.setTelefone(cursor.getString(4));
+        }
+
+        return cliente;
+    }
 }

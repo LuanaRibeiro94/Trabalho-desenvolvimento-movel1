@@ -89,4 +89,32 @@ public class LivroDao extends Banco {
 
         return listLivro;
     }
+
+    public Livro buscarLivro(String id) {
+        String [] coluns = {ID_LIVRO, TITULO, AUTOR, EDITORA, ANO};
+        String where = "id_livro = ?";
+        String[] whereArgs = {id};
+        Cursor cursor = getReadableDatabase().query(
+                TB_LIVRO,
+                coluns,
+                where,
+                whereArgs,
+                null,
+                null,
+                null,
+                null
+        );
+
+        Livro livro = new Livro();
+
+        if(cursor.moveToFirst()) {
+            livro.setId(cursor.getInt(0));
+            livro.setTitulo(cursor.getString(1));
+            livro.setAutor(cursor.getString(2));
+            livro.setEditora(cursor.getString(3));
+            livro.setAno(cursor.getString(4));
+        }
+
+        return livro;
+    }
 }

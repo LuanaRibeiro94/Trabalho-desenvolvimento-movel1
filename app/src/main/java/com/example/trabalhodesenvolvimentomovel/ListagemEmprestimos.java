@@ -7,13 +7,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.example.trabalhodesenvolvimentomovel.dao.EmprestimoDao;
+import com.example.trabalhodesenvolvimentomovel.modelo.Emprestimo;
+
+import java.util.ArrayList;
 
 public class ListagemEmprestimos extends AppCompatActivity {
+    ListView listaEmprestimos;
+    EmprestimoDao emprestimoDao;
+    ArrayList<Emprestimo> arrayListEmprestimo;
+    ArrayAdapter<Emprestimo> arrayAdapterEmprestimo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listagem_emprestimos);
+
+        listaEmprestimos = findViewById(R.id.listEmprestimos);
+        registerForContextMenu(listaEmprestimos);
     }
 
     @Override
@@ -46,5 +60,28 @@ public class ListagemEmprestimos extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        populaLista();
+    }
+
+    public void populaLista() {
+        emprestimoDao = new EmprestimoDao(ListagemEmprestimos.this);
+
+        arrayListEmprestimo = emprestimoDao.selectAllEmprestimos();
+        emprestimoDao.close();
+
+        if (listaEmprestimos != null) {
+            arrayAdapterEmprestimo = new ArrayAdapter<Emprestimo>(
+                    ListagemEmprestimos.this,
+                    android.R.layout.simple_list_item_1,
+                    arrayListEmprestimo
+            );
+
+            listaEmprestimos.setAdapter(arrayAdapterEmprestimo);
+        }
     }
 }
